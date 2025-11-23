@@ -1,67 +1,68 @@
 README – Sistema de Impressão via JNA
- Linguagem Utilizada
+Linguagem Utilizada
 Java
-Integrantes do Grupo (ordem alfabética)
+Integrantes do Grupo
 Arthur Fernandes
 Caio Damasceno
 Emilly Nayara
 Luiza Rocha
-O que o grupo desenvolveu 
-O grupo implementou as partes principais responsáveis por permitir que um usuário selecione ações no terminal e envie comandos para a impressora. As tarefas realizadas foram:
-Conexão com a impressora (via JNA)
-Fizemos a integração com a DLL da impressora usando JNA.
-Carregamos diretamente o arquivo da DLL no código.
+O que o grupo desenvolveu
+Nosso grupo ficou responsável por montar a parte principal do sistema que permite que o usuário escolha ações no terminal e envie comandos para a impressora através da DLL usando JNA.
+As partes feitas foram:
+ Integração com a impressora (via JNA)
+Fizemos a ligação do Java com a DLL da impressora usando JNA.
+A DLL é carregada direto no código.
 Menu interativo no terminal
-Criamos um menu textual que é exibido ao usuário com opções numeradas (ex.: configurar conexão, abrir conexão, imprimir texto, etc.).
-O menu facilita o uso manual do sistema sem interface gráfica avançada.
-Estrutura switch-case que chama as funções
-Implementamos um switch-case que recebe a opção digitada pelo usuário e chama a função correspondente.
-Cada case mapeia diretamente para uma ação (por exemplo, opção 3 chama a função de impressão de texto e em seguida executa o corte de papel).
-Essa estrutura organiza o fluxo do programa e garante que somente uma ação por vez seja executada.
-Observação: o grupo cuidou da ligação entre o menu (entrada do usuário) e as funções da biblioteca, ou seja, do fluxo completo: receber opção -> validar -> chamar função nativa -> tratar retorno.
-Explicação detalhada das funções implementadas
-Abaixo está a descrição do propósito e do comportamento de cada função usada no sistema.
+Criamos um menu simples, onde o usuário digita números para escolher o que quer fazer (como abrir conexão, imprimir texto, cortar papel, etc.).
+Esse menu facilita o uso sem precisar de interface gráfica.
+Estrutura switch-case
+Usamos um switch-case para organizar as opções digitadas pelo usuário.
+Cada opção chama uma função diferente (por exemplo, opção 3 → imprimir texto → depois cortar papel).
+Isso deixa o fluxo do programa organizado e evita erros de chamar função errada.
+Observação
+A parte que fizemos garante o fluxo completo: 
+ entrada do usuário → validação → chamada da função da DLL → retorno e mensagem para o usuário.
+Explicação das funções que usamos
 configurarConexao()
-Finalidade: coletar do usuário os parâmetros necessários para a conexão com a impressora.
-O que faz: lê tipo, modelo, conexao e parametro via terminal e os armazena (para uso quando a conexão for aberta).
-Observação: é a etapa inicial antes de chamar abrirConexao().
+Serve para pegar do usuário as informações necessárias para conectar na impressora.
+Ela lê tipo, modelo, conexão e parâmetro e guarda para depois.
+Usada antes de abrir de fato a conexão.
 abrirConexao()
-Finalidade: estabelecer a comunicação com a impressora.
-O que faz: chama a função da DLL (AbreConexaoImpressora) passando os parâmetros coletados; verifica o código de retorno e seta uma variável conexaoAberta para controlar o estado.
-Tratamento: exibe mensagens de sucesso/erro dependendo do retorno.
+Abre a comunicação com a impressora.
+Chama AbreConexaoImpressora da DLL com os dados configurados.
+Verifica o retorno e marca se a conexão está aberta ou não.
 fecharConexao()
-Finalidade: encerrar a sessão com a impressora.
-O que faz: chama FechaConexaoImpressora e atualiza o estado conexaoAberta conforme o retorno.
+Fecha a comunicação com a impressora.
+Chama FechaConexaoImpressora e atualiza o estado da conexão.
 impressaoTexto()
-Finalidade: enviar texto simples para impressão.
-O que faz: utiliza ImpressaoTexto da DLL com parâmetros de posição/estilo/tamanho; trata o retorno e informa ao usuário.
-Observação: normalmente utilizada junto com o comando de Corte() após a impressão.
+Imprime um texto simples.
+Usa a função ImpressaoTexto passando posição, estilo e tamanho.
+Na maioria das vezes, é chamada junto com o corte depois.
 corte()
-Finalidade: realizar o corte do papel.
-O que faz: envia comando Corte para a impressora (usada após impressões). No código atual, a função existe como placeholder ou o corte é chamado diretamente após as impressões.
+Realiza o corte do papel.
+No nosso código, às vezes é chamada direto depois da impressão.
 impressaoQRCode()
-Finalidade: gerar e imprimir um QR Code.
-O que faz: chama ImpressaoQRCode na DLL com dados, tamanho e nível de correção; valida retorno.
+Imprime um QR Code.
+Usa ImpressaoQRCode passando o conteúdo, tamanho e nível de correção.
 impressaoCodigoBarras()
-Finalidade: gerar e imprimir um código de barras (ex.: EAN/Code128 dependendo do tipo).
-O que faz: chama ImpressaoCodigoBarras com tipo, dados, altura, largura e HRI; trata erros e confirma impressão.
-avancaPapel()
-Finalidade: avançar o papel algumas linhas após a impressão.
-O que faz: chama AvancaPapel e verifica o sucesso do comando.
+Imprime código de barras.
+Usa ImpressaoCodigoBarras com tipo, dados, altura, largura e HRI.
 abreGavetaElgin() e abreGaveta()
-Finalidade: abrir a gaveta de dinheiro (caixa) conectada à impressora.
-O que faz: AbreGavetaElgin() usa um comando padrão específico de algumas impressoras Elgin; AbreGaveta() permite passar pino e tempos personalizados.
+Abrem a gaveta de dinheiro conectada à impressora.
+Uma delas é específica para impressoras Elgin, a outra permite configurar pino e tempo.
 SinalSonoro()
-Finalidade: emitir um sinal sonoro (beep) pela impressora.
-O que faz: chama SinalSonoro com quantidade e tempos, útil para alertas de operação.
+Faz a impressora emitir um beep.
+Serve como aviso sonoro para alguma ação.
 ImprimeXMLSAT() e ImprimeXMLCancelamentoSAT()
-Finalidade: imprimir XMLs relacionados ao SAT (sistema de nota fiscal eletrônica) — tanto o XML de venda quanto o de cancelamento.
-O que faz: envia o caminho do arquivo XML (ou o conteúdo conforme implementação) para as funções ImprimeXMLSAT / ImprimeXMLCancelamentoSAT da DLL.
-Como o menu e o switch-case atuam no fluxo do programa (passo a passo)
-O programa exibe o menu com opções numeradas.
-O usuário digita o número referente à ação desejada.
-O capturarEntrada() lê a entrada como String.
-O switch-case avalia essa string e direciona para o case correspondente.
-Cada case chama a função apropriada (ex: impressaoTexto()), e alguns cases também chamam comandos de apoio em sequência (ex: Corte() logo após a impressão).
-A função executada chama a função nativa da DLL, verifica o retorno e imprime mensagens de resultado (sucesso/erro).
-O menu reaparece, permitindo novas operações até que o usuário escolha 0 para fechar a conexão e sair.
+Imprimem XMLs do SAT (nota fiscal).
+Uma para a venda e outra para o cancelamento.
+Como funciona o menu com o switch-case (passo a passo)
+O programa mostra o menu com todas as opções.
+O usuário digita o número da ação que quer executar.
+A entrada é lida pelo programa.
+O switch-case verifica qual foi o número digitado.
+O case correspondente chama a função certa.
+A função acessa a DLL, executa e mostra se deu certo ou não.
+Quando termina, o menu aparece de novo.
+O programa só encerra quando o usuário digita 0.
+
