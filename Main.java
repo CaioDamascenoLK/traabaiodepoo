@@ -131,8 +131,8 @@ public class Main {
                     System.out.println("erro ao imprimir. Codigo de erro: " + retorno);
                 }
             } else {
-                System.out.println("Tem que abrir conexao primeiro");
-                return;
+                System.out.println("Impressora nao conectada");
+                System.exit(0);
             }
         }
 
@@ -151,7 +151,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Impressora nao conectada");
-                return;
+                System.exit(0);
             }
         }
 
@@ -165,7 +165,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Impressora nao conectada");
-                return;
+                System.exit(0);
             }
         }
 
@@ -179,7 +179,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Impressora nao conectada");
-                return;
+                System.exit(0);
             }
         }
 
@@ -192,8 +192,8 @@ public class Main {
                     System.out.println("Erro ao abrir a gaveta, codigo do erro: " + retorno);
                 }
             } else {
-                System.out.println("Impressora nao conectada");
-                return;
+               System.out.println("Impressora nao conectada");
+                System.exit(0);
             }
         }
 
@@ -207,7 +207,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Impressora nao conectada");
-                return;
+                System.exit(0);
             }
         }
 
@@ -221,7 +221,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Impressora nao conectada");
-                return;
+                System.exit(0);
             }
         }
 
@@ -235,7 +235,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Impressora nao conectada");
-                return;
+                System.exit(0);
             }
         }
 
@@ -253,7 +253,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Impressora nao conectada");
-                return;
+                System.exit(0);
             }
         }
 
