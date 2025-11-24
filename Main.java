@@ -132,6 +132,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Tem que abrir conexao primeiro");
+                return;
             }
         }
 
@@ -149,7 +150,8 @@ public class Main {
                     System.out.println("Erro ao imprimir QRcode. Código de erro: " + retorno);
                 }
             } else {
-                System.out.println("QRcode ja foi impresso.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
 
@@ -162,7 +164,8 @@ public class Main {
                     System.out.println("Erro ao imprimir codigo de barras. Código de erro: " + retorno);
                 }
             } else {
-                System.out.println("codigo de barras ja foi impresso.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
 
@@ -170,13 +173,13 @@ public class Main {
             if (conexaoAberta) {
                 int retorno = ImpressoraDLL.INSTANCE.AvancaPapel(2);
                 if (retorno == 0) {
-                    conexaoAberta = true;
                     System.out.println("Papel avançado.");
                 } else {
                     System.out.println("Erro ao avançar o papel, codigo do erro: " + retorno);
                 }
             } else {
-                System.out.println("Papel ja foi avançado.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
 
@@ -184,13 +187,13 @@ public class Main {
             if (conexaoAberta) {
                 int retorno = ImpressoraDLL.INSTANCE.AbreGavetaElgin();
                 if (retorno == 0) {
-                    conexaoAberta = true;
                     System.out.println("gaveta aberta");
                 } else {
                     System.out.println("Erro ao abrir a gaveta, codigo do erro: " + retorno);
                 }
             } else {
-                System.out.println("gaveta ja foi aberta.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
 
@@ -198,13 +201,13 @@ public class Main {
             if (conexaoAberta) {
                 int retorno = ImpressoraDLL.INSTANCE.AbreGaveta(1, 5, 10);
                 if (retorno == 0) {
-                    conexaoAberta = true;
                     System.out.println("gaveta aberta");
                 } else {
                     System.out.println("Erro ao abrir a gaveta, codigo do erro: " + retorno);
                 }
             } else {
-                System.out.println("gaveta ja foi aberta.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
 
@@ -212,13 +215,13 @@ public class Main {
             if (conexaoAberta) {
                 int retorno = ImpressoraDLL.INSTANCE.SinalSonoro(4,5,5);
                 if (retorno == 0) {
-                    conexaoAberta = true;
                     System.out.println(" Sinal sonoro realizado com sucesso.");
                 } else {
                     System.out.println("Erro ao realizar o sinal sonoro. Código de erro: " + retorno);
                 }
             } else {
-                System.out.println("Impressão XMLSAT já foi realizado.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
 
@@ -231,7 +234,8 @@ public class Main {
                     System.out.println("Erro ao realizar a impressão XMLSAT. Código de erro: " + retorno);
                 }
             } else {
-                System.out.println("Impressao XMLSAT já foi realizado.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
 
@@ -248,28 +252,10 @@ public class Main {
                     System.out.println("Erro ao realizar o ImprimeXMLCancelamentoSAT. Código de erro: " + retorno);
                 }
             } else {
-                System.out.println("ImprimeXMLCancelamentoSAT já foi realizado.");
+                System.out.println("Impressora nao conectada");
+                return;
             }
         }
-
-
-
-
-
-        //criar o restante das funçoes aqui!
-	
-	/* - `ImpressaoTexto()`          ("Teste de impressao", 1, 4, 0);
-	- `Corte()`						(2)  usar sempre após a impressao de algum documento
-	- `ImpressaoQRCode()`            ("Teste de impressao", 6, 4)
-	- `ImpressaoCodigoBarras()`    (8, "{A012345678912", 100, 2, 3)
-	- `AvancaPapel()`                 (2)  usar sempre após a impressao de algum documento
-	- `AbreGavetaElgin()`            (1, 50, 50)
-	- `AbreGaveta()`                  (1, 5, 10)
-	- `SinalSonoro()`				 (4,5,5)
-	- `ImprimeXMLSAT()`				
-	- `ImprimeXMLCancelamentoSAT()`    (assQRCode = "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZjbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0E2e5xlU5cv3m1woYfgHyOkWDNcSdMsS6bBh2Bpq6s89yJ9Q6qh/J8YHi306ce9Tqb/drKvN2XdE5noRSS32TAWuaQEVd7u+TrvXlOQsE3fHR1D5f1saUwQLPSdIv01NF6Ny7jZwjCwv1uNDgGZONJdlTJ6p0ccqnZvuE70aHOI09elpjEO6Cd+orI7XHHrFCwhFhAcbalc+ZfO5b/+vkyAHS6CYVFCDtYR9Hi5qgdk31v23w==";)
-	*/
-
 
         public static void main (String[]args){
             while (true) {
@@ -356,4 +342,3 @@ public class Main {
             return new String(data, StandardCharsets.UTF_8);
         }
     }
-
