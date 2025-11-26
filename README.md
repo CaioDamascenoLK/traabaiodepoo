@@ -20,9 +20,11 @@
 
 ## 👥 Integrantes do Grupo
 - Arthur Fernandes  
-- Caio Damasceno  
-- Emilly Nayara  
-- Luiza Rocha  
+- Caio Damasceno
+- Emilly Nayara
+- Gabriel Peixinho
+- Luiza Rocha
+  
 
 ---
 
